@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Year Timer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: rgb(0, 255, 0);
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 8vw;
+      perspective: 1000px;
+    }
+
+    .timer {
+      position: relative;
+      display: inline-block;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .flip {
+      animation: flip 0.2s ease-in-out;
+    }
+
+    @keyframes flip {
+      0% {
+        transform: rotateX(0deg);
+      }
+      50% {
+        transform: rotateX(90deg);
+      }
+      100% {
+        transform: rotateX(0deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="timer" class="timer">0000</div>
+
+  <script>
+    const timer = document.getElementById("timer");
+    let current = 0;
+    const endYear = 2022;
+    const interval = 6; // speed in ms
+
+    const intervalId = setInterval(() => {
+      current++;
+
+      // Only apply flip if not at final value
+      if (current < endYear) {
+        timer.textContent = String(current).padStart(4, "0");
+        timer.classList.remove("flip");
+        void timer.offsetWidth; // restart animation
+        timer.classList.add("flip");
+      } else {
+        // Final frame: show 2022, no animation
+        timer.textContent = String(endYear);
+        clearInterval(intervalId);
+      }
+    }, interval);
+  </script>
+</body>
+</html>
