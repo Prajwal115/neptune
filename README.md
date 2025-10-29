@@ -15,6 +15,8 @@ Neptune is a multimodal tool designed to streamline content creation through dee
 - Planned script management layer (WIP)
 
 ---
+<img width="1512" height="982" alt="image" src="https://github.com/user-attachments/assets/a88defbd-feb6-4a33-a0b4-a67d0f6f328f" />
+
 
 ## 🛠️ Tech Stack
 
