@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neptune - Home</title>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <style>
+        /* Define colors for easy reference */
+        :root {
+            --bg-body: #0E0E0E;
+            --bg-nav: #151515;
+            --bg-modal: #1E1E1E;
+            --purple-accent: #C9AEF7; /* Matches the highlight from the login page */
+            --text-inactive: #B1B1B1;
+            --text-active: #FFFFFF;
+            --text-placeholder: #737373;
+            --border-grey: #737373;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            background-color: var(--bg-body);
+            color: var(--text-active);
+            overflow: hidden; /* Prevent body scrolling */
+        }
+
+        /* --- 1. Navigation Sidebar (Left) --- */
+        .sidebar {
+            width: 25%; /* Approx 25% width */
+            background-color: var(--bg-nav);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0; /* Keep it from shrinking */
+        }
+
+        .logo-section {
+            padding: 20px 0 20px 0; 
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+        }
+        
+        /* New styling for the SVG logo */
+        .logo-section .logo-svg {
+            width: 80px; /* Significantly increased size */
+            height: 80px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Pushes the settings/logout to the bottom */
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 20px 30px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-inactive);
+            transition: color 0.3s, background-color 0.3s;
+            border-left: 4px solid transparent; /* Border for active state */
+        }
+
+        .nav-link .material-icons-outlined {
+            margin-right: 15px;
+            font-size: 32px;
+            color: var(--text-inactive);
+            transition: color 0.3s;
+        }
+
+        /* Hover states */
+        .nav-link:hover, .nav-link:hover .material-icons-outlined {
+            color: var(--text-active);
+        }
+
+        /* Active link styling (Home) */
+        .nav-link.active {
+            color: var(--purple-accent);
+            background-color: rgba(201, 174, 247, 0.1); /* Light purple background */
+            border-left: 4px solid var(--purple-accent);
+        }
+
+        .nav-link.active .material-icons-outlined {
+            color: var(--purple-accent);
+        }
+
+        /* Bottom section links (Settings, Logout) */
+        .nav-links-bottom {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0 0 0; /* Extra margin for separation */
+        }
+
+
+        /* --- 2. Main Content Area (Right) --- */
+        .main-content {
+            flex-grow: 1; /* Takes up the rest of the space */
+            padding: 50px;
+            overflow-y: auto; /* Allows scrolling if content exceeds height */
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-section h1 {
+            font-size: 55px;
+            font-weight: 600;
+            margin-top: 20px;
+            color: var(--purple-accent); /* "Your Projects" is purple */
+            margin-bottom: 60px;
+        }
+
+        /* Search Bar Styling */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+            padding: 15px 20px;
+            background-color: var(--bg-nav); /* Darker background for search bar */
+            border-radius: 15px;
+            border:1px solid #737373;
+            width: 350px;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            background: none;
+            border: none;
+            color: var(--text-inactive);
+            font-size: 16px;
+            padding: 0 10px;
+            outline: none;
+        }
+
+        .search-bar .material-icons-outlined {
+            color: var(--text-placeholder); /* Color 737373 */
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Placeholder for text color in search bar */
+        .search-bar input::placeholder {
+            color: var(--text-placeholder); 
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            /* Columns will be at least 250px wide and fill the container space (1fr) */
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            min-height: 250px; /* Ensure space for loading indicator */
+        }
+
+        .project-card {
+            background-color: var(--bg-nav);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            
+            width: 250px; 
+            height: 175px; 
+            
+            display: flex;
+            flex-direction: column;
+            text-align: left; /* Text alignment within card */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* New styles for dynamic project cards */
+        .project-card h3 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--purple-accent);
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .project-card p {
+            font-size: 0.875rem; /* 14px */
+            color: var(--text-inactive);
+            flex-grow: 1; /* Allows description to take space */
+            margin-bottom: 15px;
+            /* Allow description to wrap but keep it contained */
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit description to 3 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-card small {
+            font-size: 0.75rem; /* 12px */
+            color: var(--text-placeholder);
+            margin-top: auto; /* Pushes timestamp to the bottom */
+        }
+
+
+        /* Styling for the 'Create New Project' card */
+        .create-card {
+            background-color: var(--bg-body); 
+            border: 2px solid white; 
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            /* Override text alignment for 'Create' card */
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .create-card:hover {
+            background-color: rgba(201, 174, 247, 0.1);
+            transform: scale(1.03);
+        }
+
+        .create-card .material-icons-outlined {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        /* Loading/Error Container */
+        .loading-container {
+            display: none; /* Controlled by JS */
+            grid-column: 1 / -1; /* Span all columns */
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .loading-container.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--purple-accent);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- Modal Styling --- (Kept as before) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 30, 30, 0.95); 
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px); 
+        }
+
+        .modal-content {
+            background-color: var(--bg-modal);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 450px;
+            max-width: 90%;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            position: relative;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            transition: color 0.2s, background-color 0.2s;
+            padding: 5px;
+            border-radius: 8px; 
+            line-height: 1;
+        }
+        
+        .modal-close-btn:hover {
+            color: var(--purple-accent);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-active);
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 15px;
+            border: 1px solid var(--border-grey);
+            border-radius: 12px;
+            background-color: transparent;
+            color: var(--text-active);
+            font-size: 16px;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--purple-accent);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--text-active);
+            color: #000;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s, background-color 0.3s;
+            margin-top: 30px;
+        }
+
+        .submit-button:hover {
+            opacity: 1;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <!-- SVG inserted directly, with size defined in CSS. Text removed. -->
+<svg class="logo-svg" viewBox="0 0 197 197" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_23_5" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="26" y="26" width="144" height="144">
+<ellipse cx="97.8087" cy="97.6401" rx="71.3089" ry="71.7696" transform="rotate(60 97.8087 97.6401)" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_23_5)">
+<ellipse cx="97.5985" cy="98.1552" rx="71.82" ry="71.7696" transform="rotate(-15 97.5985 98.1552)" fill="white"/>
+</g>
+<mask id="mask1_23_5" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="20" y="20" width="156" height="156">
+<circle cx="98.0391" cy="98.0391" r="71.7696" transform="rotate(60 98.0391 98.0391)" fill="#D9D9D9" stroke="black" stroke-width="11.592"/>
+</mask>
+<g mask="url(#mask1_23_5)">
+<ellipse cx="161.282" cy="97.401" rx="65.7775" ry="26.2362" transform="rotate(88.8423 161.282 97.401)" fill="white" stroke="black" stroke-width="11.592"/>
+<ellipse cx="156.378" cy="96.9413" rx="71.7696" ry="49.3704" transform="rotate(88.8423 156.378 96.9413)" stroke="black" stroke-width="11.592"/>
+<ellipse cx="144.781" cy="96.2944" rx="73.9854" ry="68.0225" transform="rotate(88.8423 144.781 96.2944)" stroke="black" stroke-width="11.592"/>
+<ellipse cx="127.025" cy="96.4385" rx="76.3057" ry="81.1661" transform="rotate(88.8423 127.025 96.4385)" stroke="black" stroke-width="11.592"/>
+</g>
+</svg>
+
+        </div>
+
+        <!-- Navigation Links -->
+        <ul class="nav-links">
+            <li class="nav-item">
+                <!-- Current Page: Home (Active) -->
+                <a href="/home" class="nav-link active">
+                    <span class="material-icons-outlined">home</span>
+                    Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="material-icons-outlined">design_services</span>
+                    Drawboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="material-icons-outlined">menu_book</span>
+                    Scripture
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="material-icons-outlined">analytics</span>
+                    Analyse
+                </a>
+            </li>
+        </ul>
+        
+        <!-- Bottom Links -->
+        <ul class="nav-links-bottom nav-links">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="material-icons-outlined">settings</span>
+                    Settings
+                </a>
+            </li>
+            <li class="nav-item">
+                <!-- Logout should redirect to logout page to clear session -->
+                <a href="/logout" class="nav-link">
+                    <span class="material-icons-outlined">logout</span>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        
+        <!-- Header & Search Bar -->
+        <div class="header-section">
+            <h1>Your Projects</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Your Projects...">
+                <span class="material-icons-outlined">search</span>
+            </div>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="project-grid" id="projectGrid">
+            
+            <!-- The 'Create New Project' card will always be here -->
+            <div class="project-card create-card" id="createProjectCard">
+                <span class="material-icons-outlined">add</span>
+                Create New Project
+            </div>
+
+            <!-- Loading indicator/message goes here -->
+            <div class="loading-container show" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>Loading projects...</p>
+            </div>
+
+            <!-- Dynamic project cards will be inserted here by JavaScript -->
+
+        </div>
+    </div>
+
+    <!-- Project Modal Overlay (Initially hidden) -->
+    <div id="newProjectModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="material-icons-outlined modal-close-btn">close</span> <!-- The new white cross/close button -->
+            <h2>New Project</h2>
+            <form id="newProjectForm">
+                <div class="form-group">
+                    <label for="projectName">Project Name</label>
+                    <input type="text" id="projectName" name="projectName" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" name="projectDescription"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- AUTHENTICATION CHECK ---
+        const storedUsername = localStorage.getItem('username');
+        if (!storedUsername) {
+            console.log("No user session found in localStorage. Redirecting to /login.");
+            window.location.href = '/login';
+        } else {
+            console.log(`User session found for: ${storedUsername}`);
+        }
+        // --- END AUTHENTICATION CHECK ---
+        
+        // Helper function to format timestamp into human-readable duration
+        function formatTimestamp(rawTimestampValue) {
+            
+            let past;
+            const dateString = String(rawTimestampValue);
+            
+            // --- DEBUG LOGGING: Raw Input ---
+            console.log(`%c[TS-Debug] --- Processing Timestamp ---`, 'color: #C9AEF7; font-weight: bold;');
+            console.log(`[TS-Debug] 1. Raw Input String: ${dateString}`);
+            
+            // 1. Handle missing or empty timestamp immediately
+            if (!rawTimestampValue) {
+                console.warn("Project data is missing the 'created_at' field for this item. Displaying 'Unknown Time'.");
+                return "Unknown Time"; 
+            }
+
+            // --- CRITICAL FIX: Robust Naive Timestamp Handling ---
+            if (dateString.includes('T') && !dateString.includes('Z') && !dateString.includes('+')) {
+                // If it's an ISO-like string (has 'T') but lacks timezone info, 
+                // we assume it's UTC and append 'Z' to force the browser to treat it as such.
+                past = new Date(dateString + 'Z');
+                console.log(`[TS-Debug] 3. ISO Fix (Appended 'Z'). Resulting Date (UTC): ${past.toISOString()} (ms: ${past.getTime()})`);
+            } else {
+                // Fallback for space-separated formats, milliseconds, or already valid ISO strings (with Z or offset)
+                // Note: The previous manual Date.UTC parsing is removed as it was overly complex and failed to match the 'T' format.
+                past = new Date(dateString); 
+                console.log(`[TS-Debug] 3. Generic Fallback Used. Resulting Date: ${past}`);
+            }
+
+            // Check if the resulting date is valid
+            if (isNaN(past.getTime())) {
+                console.error('Timestamp resulted in Invalid Date during parsing:', rawTimestampValue);
+                return `Invalid Date`; 
+            }
+            
+            const now = new Date();
+            // --- DEBUG LOGGING: Current Time and Difference ---
+            console.log(`[TS-Debug] 4. NOW Date Object (Local): ${now.toISOString()} (ms: ${now.getTime()})`);
+            
+            const diffInMilliseconds = now - past;
+            const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+            
+            console.log(`[TS-Debug] 5. Difference in Seconds (now - past): ${diffInSeconds}`); 
+            
+            if (diffInSeconds < 0) {
+                 // Should theoretically not happen unless server clock is far ahead of client clock
+                 return "in the future!";
+            }
+
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
+
+            if (diffInMinutes < 1) return "just now";
+            
+            if (diffInMinutes < 60) return `${diffInMinutes} min ago`;
+
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) return `${diffInHours} hours ago`;
+
+            const diffInDays = Math.floor(diffInHours / 24);
+            if (diffInDays < 7) return `${diffInDays} days ago`;
+
+            // Fallback for older projects: Month Day, Year
+            return past.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+
+        // Function to create a project card DOM element
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card dynamic-card';
+            
+            // Use the correct 'created_at' field
+            const rawCreatedAt = project.created_at;
+
+            if (rawCreatedAt) {
+                 // Store the raw time string in a data attribute
+                 card.setAttribute('data-created-at', rawCreatedAt);
+            }
+
+            // Format the 'created_at' time for display
+            const formattedTime = formatTimestamp(rawCreatedAt);
+
+            card.innerHTML = `
+                <h3>${project.name || 'Untitled Project'}</h3>
+                <p>${project.description || 'No description provided.'}</p>
+                <small class="timestamp-display">Created ${formattedTime}</small>
+            `;
+            
+            return card;
+        }
+
+        // Function to update only the timestamps
+        function updateAllTimestamps() {
+            document.querySelectorAll('.project-card.dynamic-card').forEach(card => {
+                // Retrieve the raw 'created_at' value from the data attribute
+                const rawCreatedAt = card.getAttribute('data-created-at');
+                const smallElement = card.querySelector('.timestamp-display');
+                
+                if (rawCreatedAt && smallElement) {
+                    const formattedTime = formatTimestamp(rawCreatedAt);
+                    smallElement.textContent = `Created ${formattedTime}`;
+                }
+            });
+        }
+
+        // Function to fetch and display projects
+        async function fetchAndDisplayProjects() {
+            const grid = document.getElementById('projectGrid');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            // Hide previous dynamic projects (keep the create card)
+            document.querySelectorAll('.project-card.dynamic-card').forEach(el => el.remove());
+
+            // Show loading indicator
+            loadingIndicator.classList.add('show');
+            loadingIndicator.innerHTML = '<div class="spinner"></div><p>Loading projects...</p>';
+
+            const username = localStorage.getItem('username');
+            if (!username) {
+                 loadingIndicator.innerHTML = '<p style="color: red;">Error: Not logged in.</p>';
+                 return;
+            }
+
+            try {
+                const response = await fetch('/fetch-projects', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: username })
+                });
+
+                const projectData = await response.json();
+
+                if (response.ok && Array.isArray(projectData.projects)) {
+                    if (projectData.projects.length === 0) {
+                        loadingIndicator.innerHTML = '<p>No projects found. Click "Create New Project" to get started!</p>';
+                    } else {
+                        // Sort by 'created_at' (newest first)
+                        projectData.projects.sort((a, b) => {
+                            // Since we don't have a reliable epoch time, we sort the strings directly
+                            // YYYY-MM-DD HH:MM:SS strings are lexicographically sortable
+                            const timeA = String(a.created_at);
+                            const timeB = String(b.created_at);
+                            if (timeA < timeB) return 1;
+                            if (timeA > timeB) return -1;
+                            return 0;
+                        });
+                        
+                        projectData.projects.forEach(project => {
+                            const newCard = createProjectCard(project);
+                            // Insert before the loading indicator, which will be the last element after the create card
+                            grid.insertBefore(newCard, loadingIndicator); 
+                        });
+                        loadingIndicator.classList.remove('show');
+                        updateAllTimestamps(); // Initial display update
+                    }
+                } else {
+                    console.error("Failed to fetch projects:", projectData);
+                    loadingIndicator.innerHTML = '<p style="color: red;">Failed to load projects. Please try again later.</p>';
+                }
+
+            } catch (error) {
+                console.error("Network or Fetch Error during project fetching:", error);
+                loadingIndicator.innerHTML = '<p style="color: red;">Network error. Check your connection.</p>';
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- MODAL LOGIC SETUP ---
+            const createCard = document.querySelector('.create-card');
+            const modal = document.getElementById('newProjectModal');
+            const closeBtn = modal.querySelector('.modal-close-btn');
+            const form = document.getElementById('newProjectForm');
+            const projectNameInput = document.getElementById('projectName');
+            const projectDescriptionInput = document.getElementById('projectDescription');
+
+            const showModal = () => {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('show'), 10); 
+            };
+
+            const hideModal = () => {
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 300); 
+            };
+
+            createCard.addEventListener('click', showModal);
+            closeBtn.addEventListener('click', hideModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.style.display === 'flex') {
+                    hideModal();
+                }
+            });
+            // --- END MODAL LOGIC SETUP ---
+
+
+            // 5. Handle form submission (PROJECT CREATION)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const username = localStorage.getItem('username');
+                const projectName = projectNameInput.value;
+                const projectDescription = projectDescriptionInput.value;
+
+                if (!username) {
+                    console.error("Error: Username not found. Cannot create project.");
+                    hideModal();
+                    return;
+                }
+                
+                // Although the server returns 'created_at', we send 'timestamp' to the server 
+                // in case it's the expected input field for creation.
+                const creationTime = new Date().toISOString(); 
+
+                const payload = {
+                    username: username,
+                    projectName: projectName,
+                    projectDescription: projectDescription,
+                    timestamp: creationTime 
+                };
+
+                console.log("Attempting to send new project data:", payload);
+                
+                try {
+                    const response = await fetch('/create-project', { 
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        console.log("Project creation successful:", data);
+                        
+                        // Dynamically add the new project card to the grid
+                        const grid = document.getElementById('projectGrid');
+                        
+                        // Use the server's generated 'created_at' if returned, otherwise use local string for immediate display.
+                        const newCard = createProjectCard({
+                            name: payload.projectName, 
+                            description: payload.projectDescription,
+                            created_at: data.created_at || payload.timestamp 
+                        });
+                        
+                        // Find the first dynamic card and insert the new card before it to keep 'Create' first.
+                        const firstDynamicElement = document.querySelector('.dynamic-card') || document.getElementById('loadingIndicator');
+                        grid.insertBefore(newCard, firstDynamicElement);
+                        
+                        form.reset();
+                        hideModal();
+                        updateAllTimestamps(); // Update all to refresh 'just now'
+                        
+                    } else {
+                        const errorMessage = data.detail || data.message || "Failed to create project due to server error.";
+                        console.error("Project creation failed:", errorMessage);
+                        // In a real app, you would show this error to the user.
+                    }
+
+                } catch (error) {
+                    console.error("Network or Fetch Error during project creation:", error);
+                }
+            });
+
+            // Start fetching projects on page load
+            fetchAndDisplayProjects();
+
+            // Setup real-time timestamp refresh (Every 30 seconds)
+            setInterval(updateAllTimestamps, 30000);
+        });
+    </script>
+
+</body>
+</html>

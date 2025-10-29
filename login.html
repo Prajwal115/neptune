@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neptune - Login</title>
+    <style>
+        /* Include Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            background-color: #f7f7f7;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .login-container {
+            display: flex;
+            width: 100vw; /* Take full viewport width */
+            height: 100vh; /* Take full viewport height (end-to-end) */
+            box-shadow: none; 
+            border-radius: 0; 
+            overflow: hidden;
+        }
+
+        /* --- Left Side: Pattern Image Placeholder --- */
+        .pattern-side {
+            width: 45%; 
+            background-color: #2B254E;
+            /* Placeholder for the pattern image */
+            background-image: url('/res/lr.png'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0; 
+        }
+
+        /* --- Right Side: Login Form --- */
+        .form-side {
+            width: 55%; /* Corrected width for 45/55 split */
+            background-color: #FFFFFF;
+            padding: 50px 70px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-side h1 {
+            font-size: 65px;
+            font-weight: 200;
+            color: #000000;
+            margin-bottom: -10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #6B6B6B;
+            margin-bottom: 40px;
+            font-weight: 200;
+        }
+
+        .subtitle a {
+            color: #3b3b3b;
+            font-weight: 300;
+            opacity: 0.8;
+            transition: 0.3s ease;
+            text-underline-offset: 5px;
+            text-decoration: underline;
+        }
+        .subtitle a:hover{
+            opacity:1;
+            transition: 0.3s ease;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 22px;
+            font-weight: 500;
+            color: #2B254E;
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 17px 20px;
+            font-size: 18px;
+            color: #000; /* Use dark color for text input */
+            border: 1px solid #C4C4C4;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #C9AEF7;
+            outline: none;
+        }
+
+        .login-button {
+            width: 150px;
+            padding: 17px 30px;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 14px;
+            font-size: 21px;
+            border: 1px solid black;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .login-button:hover {
+            background-color: #2B254E;
+            color: #FFFFFF;
+            border: 1px solid white;
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+
+        /* --- Custom Modal Alert Styles (copied from register.html) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content.success h2 { color: #008000; }
+        .modal-content.error h2 { color: #990000; }
+
+
+        .modal-content h2 {
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background-color: #2B254E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #C9AEF7;
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- Left side: Pattern Image Placeholder -->
+        <div class="pattern-side">
+            <!-- The pattern/image is displayed via the background-image CSS property -->
+        </div>
+
+        <!-- Right side: Login Form -->
+        <div class="form-side">
+            <h1>Login</h1>
+            <p class="subtitle">
+                Don't have an account? <a href="/register">Register Here.</a>
+            </p>
+
+        <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Modal Alert Structure -->
+    <div id="customAlertModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="alertTitle">Error!</h2>
+            <p id="alertMessage">An error occurred during login.</p>
+            <button onclick="document.getElementById('customAlertModal').style.display = 'none';">OK</button>
+        </div>
+    </div>
+
+<script>
+    // NEW: Check if user is already "logged in" via localStorage on page load.
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+        console.log(`User ${storedUsername} found in local storage. Redirecting to /home.`);
+        // Immediately redirect to the home page
+        window.location.href = '/home';
+    }
+    
+    const form = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const modal = document.getElementById("customAlertModal");
+    const alertTitle = document.getElementById("alertTitle");
+    const alertMessage = document.getElementById("alertMessage");
+    const modalContent = document.querySelector(".modal-content");
+    
+    // Function to display the custom modal
+    function showAlert(title, message, isError = true) {
+        alertTitle.innerText = title;
+        alertMessage.innerText = message;
+        
+        // Update styling based on success or error
+        modalContent.className = 'modal-content ' + (isError ? 'error' : 'success');
+        modal.style.display = "flex";
+    }
+
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault(); 
+        
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        // --- Server Submission ---
+        try {
+            // NOTE: In a real application, you should handle this API call with Firebase Auth
+            const response = await fetch('/api/login', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log(`Login successful for user: ${username}. Saving to localStorage and redirecting.`);
+                
+                // 1. Save the username to localStorage (Ensuring this happens)
+                localStorage.setItem('username', username);
+
+                showAlert("Welcome Back!", `Login successful for user: ${username}`, false);
+                
+                // 2. Redirect immediately after success message displays (Timeout set to 0)
+                setTimeout(() => { 
+                    window.location.href = '/home'; 
+                }, 0); 
+            } else {
+                // Failed login (e.g., status code 401 Unauthorized)
+                const errorMessage = data.detail || data.message || "Login failed. Check your credentials.";
+                showAlert("Login Failed", errorMessage, true);
+            }
+
+        } catch (error) {
+            console.error("Network or Fetch Error:", error);
+            showAlert("Connection Error", "Could not connect to the server. Please check your network.", true);
+        }
+    });
+</script>
+</body>
+</html>

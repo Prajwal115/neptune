@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neptune - Register</title>
+    <style>
+        /* Include Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            background-color: #f7f7f7;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .register-container {
+            display: flex;
+            width: 100vw; /* Take full viewport width */
+            height: 100vh; /* Take full viewport height (end-to-end) */
+            box-shadow: none; 
+            border-radius: 0; 
+            overflow: hidden;
+        }
+
+        /* --- Left Side: Pattern Image Placeholder --- */
+        .pattern-side {
+            width: 45%; 
+            background-color: #2B254E;
+            /* Placeholder for the pattern image */
+            background-image: url('/res/lr.png'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* --- Right Side: Register Form --- */
+        .form-side {
+            width: 55%; /* Corrected width for 45/55 split */
+            background-color: #FFFFFF;
+            padding: 50px 70px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-side h1 {
+            font-size: 65px;
+            font-weight: 200;
+            color: #000000;
+            margin-bottom: -10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #6B6B6B;
+            margin-bottom: 40px;
+            font-weight: 200;
+        }
+
+        .subtitle a {
+            color: #3b3b3b;
+            font-weight: 300;
+            opacity: 0.8;
+            transition: 0.3s ease;
+            text-underline-offset: 5px;
+            text-decoration: underline;
+        }
+        .subtitle a:hover{
+            opacity:1;
+            transition: 0.3s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 22px;
+            font-weight: 500;
+            color: #2B254E;
+            margin-bottom: 10px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 17px 20px;
+            font-size: 18px;
+            color: #000;
+            border: 1px solid #C4C4C4;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #C9AEF7;
+            outline: none;
+        }
+
+        /* --- Proceed Button --- */
+        .proceed-button {
+            width: 150px;
+            padding: 17px 30px;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 14px;
+            font-size: 21px;
+            border: 1px solid black;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .proceed-button:hover {
+            background-color: #2B254E;
+            color: #FFFFFF;
+            border: 1px solid white;
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+
+        /* --- Custom Modal Alert Styles (to replace native alert) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content.success h2 { color: #008000; }
+        .modal-content.error h2 { color: #990000; }
+
+        .modal-content h2 {
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .modal-content p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background-color: #2B254E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content button:hover {
+            background-color: #C9AEF7;
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <!-- Left side: Pattern Image Placeholder -->
+        <div class="pattern-side">
+            <!-- The pattern/image is displayed via the background-image CSS property -->
+        </div>
+
+        <!-- Right side: Register Form -->
+        <div class="form-side">
+            <h1>Signup</h1>
+            <p class="subtitle">
+                Already have an account? <a href="/login">Login Here.</a>
+            </p>
+            <!-- action is empty because we handle submission via fetch -->
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="createUsername">Create Username</label>
+                    <input type="text" id="createUsername" name="username" placeholder="Choose a unique username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="createPassword">Create Password</label>
+                    <input type="password" id="createPassword" name="password" placeholder="Minimum 8 characters" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <!-- IMPORTANT: 'confirmPassword' has no 'name' attribute, so it is not sent in the form data -->
+                    <input type="password" id="confirmPassword" placeholder="Re-enter your password" required>
+                </div>
+
+                <button type="submit" class="proceed-button">
+                    Proceed
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Modal Alert Structure -->
+    <div id="customAlertModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 id="alertTitle">Error!</h2>
+            <p id="alertMessage">Passwords do not match. Please try again.</p>
+            <button onclick="document.getElementById('customAlertModal').style.display = 'none';">OK</button>
+        </div>
+    </div>
+
+<script>
+    // NEW: Check if user is already "logged in" via localStorage on page load.
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+        console.log(`User ${storedUsername} found in local storage. Redirecting to /home.`);
+        // Immediately redirect to the home page
+        window.location.href = '/home';
+    }
+    
+    const form = document.getElementById("registerForm");
+    const usernameInput = document.getElementById("createUsername");
+    const passwordInput = document.getElementById("createPassword");
+    const confirmInput = document.getElementById("confirmPassword");
+    const modal = document.getElementById("customAlertModal");
+    const alertTitle = document.getElementById("alertTitle");
+    const alertMessage = document.getElementById("alertMessage");
+    const modalContent = document.querySelector(".modal-content");
+    
+    // Function to display the custom modal
+    function showAlert(title, message, isError = true) {
+        alertTitle.innerText = title;
+        alertMessage.innerText = message;
+        
+        // Update styling based on success or error
+        modalContent.className = 'modal-content ' + (isError ? 'error' : 'success');
+        modal.style.display = "flex";
+    }
+
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault(); 
+        
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+        const confirm = confirmInput.value;
+
+        // --- Client-Side Validation ---
+        if (password !== confirm) {
+            showAlert("Error!", "Passwords do not match. Please ensure both passwords are identical.", true);
+            return;
+        }
+
+        if (password.length < 8) {
+            showAlert("Error!", "Password must be at least 8 characters long.", true);
+            return;
+        }
+
+        // --- Server Submission ---
+        try {
+            // Note: Since this is a frontend-only environment, this fetch request is mocked.
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Only send username and the password (not the confirmation password)
+                body: JSON.stringify({ username: username, password: password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Successful registration
+                // Save the username to localStorage to indicate a "logged-in" state
+                localStorage.setItem('username', username);
+
+                showAlert("Success!", "Registration successful!", false);
+                setTimeout(() => { window.location.href = '/home'; }, 0);
+            } else {
+                // Failed registration (e.g., username already exists, bad request)
+                const errorMessage = data.detail || data.message || "Registration failed due to an unknown server error.";
+                showAlert("Registration Failed", errorMessage, true);
+            }
+
+        } catch (error) {
+            console.error("Network or Fetch Error:", error);
+            showAlert("Connection Error", "Could not connect to the server. Please check your network.", true);
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logging Out</title>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0E0E0E; /* Dark background matching home */
+            color: #FFFFFF;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 40px;
+            font-weight: 200;
+            color: #C9AEF7; /* Purple accent */
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: 300;
+        }
+
+        /* Simple loading spinner style */
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid #C9AEF7;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Signing Out...</h1>
+    <p>Clearing your session data and redirecting you now.</p>
+    <div class="spinner"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Remove the 'username' item from localStorage
+            localStorage.removeItem('username');
+            console.log("User session cleared from localStorage.");
+
+            // 2. Redirect to the root path
+            // Using a slight delay (even 10ms) ensures the localStorage operation completes 
+            // before navigation, making the logout process more reliable.
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 10);
+        });
+    </script>
+</body>
+</html>

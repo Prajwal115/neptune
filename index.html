@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neptune - Circular Creativity</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* Ensuring a black background as per instruction */
+        }
+
+        .main {
+            height: 700px; /* Initial height as requested */
+            background-color: #000; /* Black background as placeholder for the image */
+            color: #C4C4C4;
+            display: flex;
+            flex-direction: column;
+            padding: 0 2%;
+            box-sizing: border-box;
+            background-image: url('res/bg.png'); /* Placeholder for the background image */
+            background-size: cover;
+            background-position-y:top;
+            background-position: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .logo {
+            opacity: 0.8;
+            margin-left: 40px;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 1;
+        }
+
+        .logo img {
+            height: 40px; /* Adjust logo height as needed */
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 70px;
+
+            margin-right: 70px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #C4C4C4;
+            text-decoration: none;
+            font-size: 22px;
+            
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color:white;
+            transition: 0.3s ease;
+        }
+
+        .login-button {
+            background-color: transparent;
+            border: 1px solid #C4C4C4;
+            color: #C4C4C4;
+            padding: 10px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
+        }
+        .nav-links .login-button:hover {
+            background-color: #FFFFFF;
+            color: #000;
+            border-radius: 30px;
+        }
+
+        .hero-content {
+            flex-grow: 1;
+            margin-left: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 50%; /* To prevent text from spilling too much on the right */
+        }
+
+        .hero-content h1 {
+            color: #C9AEF7;
+            font-size: 80px;
+            width: 70%;
+            line-height: 0.903; /* Adjusted line height */
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero-content h2 {
+            color: #FFFFFF;
+            font-size: 33px;
+            line-height: 0.903;  /* Adjusted line height */
+            margin-bottom: 5px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .hero-content p {
+            color: #C4C4C4;
+            font-size: 30px;
+            line-height: 0.98;
+            font-style: italic; /* Adjusted line height */
+            margin-bottom: 40px;
+            font-weight: 100;
+        }
+
+        .get-started-button {
+            background-color: transparent;
+            border:2px solid #C4C4C4;
+            color: #C4C4C4;
+            font-weight: 400;
+            padding: 15px 45px;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
+        }
+
+        .get-started-button:hover {
+            background-color: #FFFFFF;
+            color: #000;
+            border:2px solid white;
+            transition: background-color 0.3s ease, color 0.3s ease, border-radius 0.3s ease;
+
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+        <nav>
+            <div class="logo">
+<svg width="200" height="80" viewBox="0 0 599 197" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M297.754 62.7298V131.457H286.68L254.296 84.6433H253.726V131.457H241.276V62.7298H252.417L284.767 109.577H285.371V62.7298H297.754ZM328.878 132.464C323.71 132.464 319.247 131.39 315.488 129.242C311.752 127.072 308.877 124.007 306.864 120.047C304.85 116.065 303.843 111.378 303.843 105.986C303.843 100.684 304.85 96.0308 306.864 92.0262C308.9 87.9992 311.741 84.8671 315.388 82.6299C319.034 80.3703 323.318 79.2405 328.24 79.2405C331.417 79.2405 334.415 79.755 337.234 80.7841C340.075 81.7909 342.581 83.3569 344.751 85.4823C346.943 87.6077 348.666 90.3147 349.919 93.6034C351.172 96.8697 351.798 100.762 351.798 105.282V109.007H309.548V100.818H340.154C340.131 98.4917 339.628 96.4223 338.643 94.6101C337.659 92.7756 336.283 91.3326 334.516 90.2811C332.771 89.2296 330.735 88.7039 328.408 88.7039C325.925 88.7039 323.744 89.3079 321.864 90.516C319.985 91.7018 318.52 93.2678 317.468 95.2142C316.439 97.1382 315.913 99.2524 315.891 101.557V108.705C315.891 111.702 316.439 114.275 317.535 116.423C318.631 118.548 320.164 120.182 322.133 121.323C324.101 122.441 326.406 123 329.046 123C330.813 123 332.413 122.754 333.845 122.262C335.276 121.748 336.518 120.998 337.57 120.014C338.621 119.029 339.415 117.81 339.952 116.356L351.295 117.631C350.579 120.629 349.214 123.247 347.201 125.484C345.21 127.699 342.659 129.421 339.549 130.652C336.44 131.86 332.883 132.464 328.878 132.464ZM357.35 150.787V79.9116H369.297V88.4354H370.002C370.628 87.1826 371.512 85.8514 372.653 84.442C373.794 83.0102 375.338 81.7909 377.284 80.7841C379.23 79.755 381.714 79.2405 384.734 79.2405C388.716 79.2405 392.307 80.2584 395.506 82.2943C398.728 84.3078 401.278 87.2944 403.157 91.2543C405.059 95.1918 406.01 100.024 406.01 105.751C406.01 111.412 405.081 116.222 403.225 120.182C401.368 124.141 398.84 127.162 395.64 129.242C392.441 131.323 388.817 132.363 384.768 132.363C381.814 132.363 379.365 131.871 377.418 130.887C375.472 129.902 373.906 128.717 372.72 127.329C371.557 125.92 370.651 124.589 370.002 123.336H369.499V150.787H357.35ZM369.264 105.684C369.264 109.018 369.733 111.937 370.673 114.443C371.635 116.949 373.011 118.906 374.801 120.316C376.613 121.703 378.805 122.396 381.378 122.396C384.063 122.396 386.311 121.68 388.123 120.249C389.935 118.794 391.3 116.815 392.217 114.309C393.157 111.781 393.627 108.906 393.627 105.684C393.627 102.485 393.168 99.6439 392.251 97.1606C391.334 94.6773 389.969 92.7309 388.157 91.3214C386.345 89.912 384.085 89.2073 381.378 89.2073C378.783 89.2073 376.579 89.8896 374.767 91.2543C372.955 92.619 371.579 94.5318 370.639 96.9928C369.722 99.4537 369.264 102.351 369.264 105.684ZM437.427 79.9116V89.3079H407.795V79.9116H437.427ZM415.111 67.5622H427.259V115.953C427.259 117.586 427.505 118.839 427.997 119.712C428.512 120.562 429.183 121.144 430.011 121.457C430.838 121.77 431.756 121.927 432.762 121.927C433.523 121.927 434.217 121.871 434.843 121.759C435.492 121.647 435.984 121.546 436.32 121.457L438.367 130.954C437.718 131.177 436.789 131.424 435.581 131.692C434.396 131.96 432.941 132.117 431.219 132.162C428.176 132.251 425.436 131.793 422.997 130.786C420.558 129.757 418.623 128.168 417.191 126.021C415.782 123.873 415.088 121.188 415.111 117.967V67.5622ZM475.715 109.778V79.9116H487.863V131.457H476.085V122.296H475.548C474.384 125.182 472.471 127.542 469.809 129.376C467.169 131.211 463.914 132.128 460.044 132.128C456.665 132.128 453.679 131.379 451.084 129.88C448.511 128.359 446.497 126.155 445.043 123.269C443.589 120.361 442.862 116.848 442.862 112.732V79.9116H455.01V110.852C455.01 114.119 455.905 116.714 457.695 118.638C459.484 120.562 461.833 121.524 464.742 121.524C466.532 121.524 468.265 121.088 469.943 120.215C471.621 119.343 472.997 118.045 474.071 116.322C475.167 114.577 475.715 112.396 475.715 109.778ZM507.779 101.255V131.457H495.631V79.9116H507.242V88.6703H507.846C509.031 85.7843 510.922 83.4912 513.517 81.7909C516.135 80.0906 519.367 79.2405 523.215 79.2405C526.773 79.2405 529.871 80.0011 532.511 81.5224C535.173 83.0437 537.232 85.2474 538.686 88.1334C540.162 91.0194 540.889 94.5207 540.867 98.6371V131.457H528.719V100.516C528.719 97.0711 527.824 94.3752 526.034 92.4289C524.267 90.4825 521.817 89.5093 518.685 89.5093C516.56 89.5093 514.669 89.9791 513.014 90.9187C511.381 91.836 510.094 93.1671 509.154 94.9122C508.237 96.6572 507.779 98.7714 507.779 101.255ZM571.311 132.464C566.143 132.464 561.68 131.39 557.921 129.242C554.185 127.072 551.31 124.007 549.297 120.047C547.283 116.065 546.277 111.378 546.277 105.986C546.277 100.684 547.283 96.0308 549.297 92.0262C551.333 87.9992 554.174 84.8671 557.821 82.6299C561.467 80.3703 565.752 79.2405 570.673 79.2405C573.85 79.2405 576.848 79.755 579.667 80.7841C582.508 81.7909 585.014 83.3569 587.184 85.4823C589.377 87.6077 591.099 90.3147 592.352 93.6034C593.605 96.8697 594.231 100.762 594.231 105.282V109.007H551.981V100.818H582.587C582.564 98.4917 582.061 96.4223 581.076 94.6101C580.092 92.7756 578.716 91.3326 576.949 90.2811C575.204 89.2296 573.168 88.7039 570.841 88.7039C568.358 88.7039 566.177 89.3079 564.297 90.516C562.418 91.7018 560.953 93.2678 559.901 95.2142C558.872 97.1382 558.346 99.2524 558.324 101.557V108.705C558.324 111.702 558.872 114.275 559.968 116.423C561.065 118.548 562.597 120.182 564.566 121.323C566.535 122.441 568.839 123 571.479 123C573.246 123 574.846 122.754 576.278 122.262C577.709 121.748 578.951 120.998 580.003 120.014C581.054 119.029 581.848 117.81 582.385 116.356L593.728 117.631C593.012 120.629 591.647 123.247 589.634 125.484C587.643 127.699 585.092 129.421 581.983 130.652C578.873 131.86 575.316 132.464 571.311 132.464Z" fill="white"/>
+<mask id="mask0_23_3" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="26" y="26" width="144" height="144">
+<ellipse cx="97.8087" cy="97.6401" rx="71.3089" ry="71.7696" transform="rotate(60 97.8087 97.6401)" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_23_3)">
+<ellipse cx="97.5985" cy="98.1551" rx="71.82" ry="71.7696" transform="rotate(-15 97.5985 98.1551)" fill="white"/>
+</g>
+<mask id="mask1_23_3" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="20" y="20" width="156" height="156">
+<circle cx="98.0391" cy="98.0391" r="71.7696" transform="rotate(60 98.0391 98.0391)" fill="#D9D9D9" stroke="black" stroke-width="11.592"/>
+</mask>
+<g mask="url(#mask1_23_3)">
+<ellipse cx="161.282" cy="97.4009" rx="65.7775" ry="26.2362" transform="rotate(88.8423 161.282 97.4009)" fill="white" stroke="black" stroke-width="11.592"/>
+<ellipse cx="156.378" cy="96.9413" rx="71.7696" ry="49.3704" transform="rotate(88.8423 156.378 96.9413)" stroke="black" stroke-width="11.592"/>
+<ellipse cx="144.781" cy="96.2944" rx="73.9854" ry="68.0225" transform="rotate(88.8423 144.781 96.2944)" stroke="black" stroke-width="11.592"/>
+<ellipse cx="127.025" cy="96.4384" rx="76.3057" ry="81.1661" transform="rotate(88.8423 127.025 96.4384)" stroke="black" stroke-width="11.592"/>
+</g>
+</svg>
+
+
+            </div>
+            <div class="nav-links">
+                <a href="#">Features</a>
+                <a href="#">About</a>
+                <a href="#">Docs</a>
+                <a href="/login" class="login-button">Login</a>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <h1>Circular Creativity.</h1>
+            <h2>Content Creation Remastered.</h2>
+            <p>
+                Source. Amplify. Assemble.<br>
+                Powered by Multimodal AI.
+            </p>
+            <a href="#" class="get-started-button">Get Started</a>
+        </div>
+    </div>
+
+</body>
+</html>
